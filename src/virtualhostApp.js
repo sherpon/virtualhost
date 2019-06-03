@@ -28,7 +28,16 @@ const websiteCreatorRouter = require('./websiteCreator');
 const virtualhostServerRouter = require('./virtualhostServer');
 
 app.use(vhost(process.env.WEBSITE_CREATOR_ENDPOINT, websiteCreatorRouter));
-app.use(vhost(/[a-z]/ig, virtualhostServerRouter));
+// app.use(vhost(/[a-z]/ig, virtualhostServerRouter));
+const allDomainRegex = /[a-z]/ig;
+app.use((req, res, next) => {
+  const domain = req.host;
+  const result = allDomainRegex.test(domain);
+  if (!result) {
+    next();
+  }
+  virtualhostServerRouter(req, res, next);
+});
 
 // ********************************************
 // The 404 Route
@@ -48,20 +57,14 @@ app.use(function(req, res, next){
   }
 })
 
-// console.log('DOTENV_PATH');
-// console.log(process.env.DOTENV_PATH);
-
-// console.log('WEBSITE_CREATOR_ENDPOINT');
-// console.log(process.env.WEBSITE_CREATOR_ENDPOINT);
-
 // DO NOT DO app.listen() unless we're testing this directly
 if (require.main === module) { 
   //Start Sherpon Virtualhost
-  var port = process.env.PORT || 7000
+  const port = process.env.PORT || 7000;
   app.listen(port, function () {
-    console.log(colors.blue('NODE_ENV: %s'), process.env.NODE_ENV)
-    console.log(colors.cyan('Sherpon Virtualhost running on http://*.localhost:%d/'), port)
-  })
+    console.log('NODE_ENV: %s', process.env.NODE_ENV);
+    console.log('Sherpon Virtualhost running on http://*.localhost:%d/', port);
+  });
 }
 
 // Instead do export the app:
