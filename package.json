@@ -1,0 +1,23 @@
+{
+  "name": "virtualhost",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/virtualhostApp.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "dev":"export DOTENV_PATH=\"$PWD/env/development.env\" && node ./src/virtualhostApp.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherpon/virtualhost.git"
+  },
+  "author": "Bruce Grover Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sherpon/virtualhost/issues"
+  },
+  "homepage": "https://github.com/sherpon/virtualhost#readme",
+  "dependencies": {
+    "dotenv": "^8.0.0"
+  }
+}
