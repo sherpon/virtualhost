@@ -31,7 +31,7 @@ const virtualhostServerRouter = require('./virtualhostServer');
 app.use(vhost(process.env.WEBSITE_CREATOR_ENDPOINT, websiteCreatorRouter));
 const allDomainRegex = /[a-z]/ig;
 app.use((req, res, next) => {
-  const domain = req.host;
+  const domain = req.hostname;
   const result = allDomainRegex.test(domain);
   if (!result) {
     next();

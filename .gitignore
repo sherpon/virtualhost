@@ -1,4 +1,5 @@
 # https://github.com/dvcs/gitignore/blob/master/templates/Node.gitignore
+virtualhost
 
 # Logs
 logs
