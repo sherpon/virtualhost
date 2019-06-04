@@ -29,7 +29,6 @@ const websiteCreatorRouter = require('./websiteCreator');
 const virtualhostServerRouter = require('./virtualhostServer');
 
 app.use(vhost(process.env.WEBSITE_CREATOR_ENDPOINT, websiteCreatorRouter));
-// app.use(vhost(/[a-z]/ig, virtualhostServerRouter));
 const allDomainRegex = /[a-z]/ig;
 app.use((req, res, next) => {
   const domain = req.host;
