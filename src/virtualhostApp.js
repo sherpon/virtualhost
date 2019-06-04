@@ -5,6 +5,7 @@ require('dotenv').config({
 const express = require('express');
 const vhost = require('vhost');
 const path = require('path');
+const fs = require("fs");
 const helmet = require('helmet');
 const morgan = require('morgan');
 
@@ -22,7 +23,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 // set ejs render
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'public'));
+app.set('views', process.env.PUBLIC_DIRECTORY);
 
 const websiteCreatorRouter = require('./websiteCreator');
 const virtualhostServerRouter = require('./virtualhostServer');
@@ -36,7 +37,12 @@ app.use((req, res, next) => {
   if (!result) {
     next();
   }
-  virtualhostServerRouter(req, res, next);
+  if (fs.existsSync(`${process.env.PUBLIC_DIRECTORY}/${domain}`)) {
+    // Do something
+    virtualhostServerRouter(req, res, next);
+  } else {
+    next();
+  }
 });
 
 // ********************************************
