@@ -5,8 +5,9 @@ const expirationFilter = () => (req, res, next) => {
   const today = new Date();
   if (today.getTime() >= expiresAt.getTime()) {
     res.send('The website expired :(');
+  } else {
+    next();
   }
-  next();
 };
 
 module.exports = expirationFilter;

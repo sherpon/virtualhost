@@ -28,7 +28,7 @@ const websiteCreatorRouter = require('./websiteCreator');
 const publisherRouter = require('./publisher');
 const virtualhostServerRouter = require('./virtualhostServer');
 
-app.use(vhost(process.env.WEBSITE_CREATOR_ENDPOINT, websiteCreatorRouter));
+app.use(vhost(process.env.VIRTUALHOST_CREATOR_ENDPOINT, websiteCreatorRouter));
 
 app.use(vhost(process.env.PUBLISHER_ENDPOINT, publisherRouter));
 
