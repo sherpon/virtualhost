@@ -11,19 +11,16 @@ router.use(bodyParser.text());
 router.use(bodyParser.json({type: 'application/json'}));
 
 router.post('/', async function (request, response) { 
-  // const user = request.body.user;
-  // const website = request.body.website;
-
-  const website = {
-    domain: 'mydomain.localhost'
-  };
+  const configFile = request.body;
 
   try {
-    await filesCreator(website);
+    await filesCreator(configFile);
+    response.status(201);
   } catch (error) {
     console.error(error);
+    response.status(401);
   } finally {
-    response.send('websiteCreator');
+    response.end();
   }
 })
 
