@@ -39,12 +39,13 @@ const filesCreator = (configFile) => {
         "filename": "about.ejs",
         "createdAt": new Date(),
         "url":"about",
-        "keywords":"",
         "title":"About page",
+        "keywords":"",
         "description":"",
+        "themeColor":"",
         "meta":"",
-        "scripts":"",
-        "styles":"",
+        "script":"",
+        "style":"",
       }));
 
       /** CREATE CONFIG FILE */
