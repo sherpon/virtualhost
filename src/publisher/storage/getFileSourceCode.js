@@ -2,7 +2,7 @@
  * reference https://cloud.google.com/nodejs/docs/reference/storage/2.5.x/File#download
  */
 
-const getFileSourceCode = (storage, websiteId, file) => {
+const getFileSourceCode = async (storage, websiteId, file) => {
 
   if (file.type==='page') {
     const newFilenameJson = file.filename.replace('.ejs', '.json');
