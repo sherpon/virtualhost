@@ -1,12 +1,12 @@
 
-const getFileAttribute = (firestore, websiteId, fileId) => {
+const getFileAttribute = (firestore, websiteId, filename) => {
   return new Promise((resolve, reject) => {
     const websiteRef = firestore.collection('websites').doc(websiteId);
-    websiteRef.collection('files').doc(fileId).get()
+    websiteRef.collection('files').doc(filename).get()
     .then(function(doc) {
       if (doc.exists) {
         // console.log("Document data:", doc.data());
-        resolve({...doc.data(), id: fileId});
+        resolve({...doc.data(), filename});
       } else {
         // doc.data() will be undefined in this case
         console.error("no such file!");

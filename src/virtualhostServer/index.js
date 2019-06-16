@@ -12,15 +12,17 @@ router.use(bodyParser.json({type: 'application/json'}));
 
 router.use(expirationFilter());
 
-router.get('/:pageName', function (request, response) { 
+router.get('/:pageUrl', function (request, response) { 
   const domain = request.hostname;
   const config = request.websiteConfig;
-  const pageName = request.params.pageName;
+  const pageUrl = request.params.pageUrl;
+  const pageConfig = require(`${process.env.PUBLIC_DIRECTORY}/${domain}/pages/${pageUrl}.json`);
 
   response.render(`${domain}/templates/pages`, {
     domain,
     config,
-    pageName,
+    pageUrl,
+    pageConfig,
   });
 });
 

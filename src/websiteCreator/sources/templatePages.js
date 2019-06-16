@@ -4,7 +4,7 @@ const html = `
   <head></head>
   <body>
     <%- include(\`header\`, {}); %>
-    <%- include(\`../pages/\${pageName}\`, {domain, pageName}); %>
+    <%- include(\`../pages/\${pageUrl}\`, {domain, pageUrl}); %>
     <%- include(\`footer\`, {}); %>
   </body>
 </html>

@@ -36,9 +36,9 @@ const getFileSourceCodeStep = async (req, res) => {
 const getFileAttributesStep = async (req, res) => {
   try {
     const websiteId = req.query.websiteId;
-    const fileId = req.body.id;
+    const filename = req.body.filename;
     firestore = getFirestore(firestore);
-    const file = await getFileAttributes(firestore, websiteId, fileId);
+    const file = await getFileAttributes(firestore, websiteId, filename);
     // populate
     req.fileAttributes = file;
     await getFileSourceCodeStep(req, res);
