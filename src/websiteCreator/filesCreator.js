@@ -13,8 +13,8 @@ const filesCreator = (configFile) => {
     try {
       /** CREATE DIRECTORIES */
       // create Website Directory
-      await fsPromises.mkdir(`${process.env.PUBLIC_DIRECTORY}/${configFile.id}`);
-      await fsPromises.symlink(`${process.env.PUBLIC_DIRECTORY}/${configFile.id}`, `${process.env.PUBLIC_DIRECTORY}/${configFile.domain}`);
+      await fsPromises.mkdir(`${process.env.SOURCES_DIRECTORY}/${configFile.id}`);
+      await fsPromises.symlink(`${process.env.SOURCES_DIRECTORY}/${configFile.id}`, `${process.env.PUBLIC_DIRECTORY}/${configFile.domain}`);
       // create Website Templates Directory
       await fsPromises.mkdir(`${process.env.PUBLIC_DIRECTORY}/${configFile.domain}/templates`);
       // create Website Pages Directory
