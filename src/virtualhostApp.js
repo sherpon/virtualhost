@@ -26,11 +26,14 @@ app.set('views', process.env.PUBLIC_DIRECTORY);
 
 const websiteCreatorRouter = require('./websiteCreator');
 const publisherRouter = require('./publisher');
+const domainManagerRouter = require('./domainManager');
 const virtualhostServerRouter = require('./virtualhostServer');
 
 app.use(vhost(process.env.VIRTUALHOST_CREATOR_ENDPOINT, websiteCreatorRouter));
 
 app.use(vhost(process.env.PUBLISHER_ENDPOINT, publisherRouter));
+
+app.use(vhost(process.env.DOMAIN_MANAGER_ENDPOINT, domainManagerRouter));
 
 const allDomainRegex = /[a-z]/ig;
 app.use((req, res, next) => {
