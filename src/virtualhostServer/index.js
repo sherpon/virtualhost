@@ -12,6 +12,8 @@ router.use(bodyParser.json({type: 'application/json'}));
 
 router.use(expirationFilter());
 
+router.use(express.static(process.env.STATICS_DIRECTORY));
+
 router.get('/:pageUrl', function (request, response) { 
   const domain = request.hostname;
   const config = request.websiteConfig;
