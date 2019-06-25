@@ -1,3 +1,4 @@
+const fsPromises = require('fs').promises;
 /**
  * reference https://cloud.google.com/nodejs/docs/reference/storage/2.5.x/File#download
  */
@@ -8,16 +9,16 @@ const getFileSourceCode = async (storage, websiteId, file) => {
 
   if (file.type==='page') {
     const newPageJson = `${file.url}.json`;
-    await fsPromises.writeFile(`${process.env.PUBLIC_DIRECTORY}/${websiteId}/pages/${newPageJson}`, JSON.stringify(file));
+    await fsPromises.writeFile(`${process.env.SOURCES_DIRECTORY}/${websiteId}/pages/${newPageJson}`, JSON.stringify(file));
     options = {
       // The path to which the file should be downloaded, e.g. "./file.txt"
-      destination: `${process.env.PUBLIC_DIRECTORY}/${websiteId}/${file.type}s/${file.url}.ejs`,
+      destination: `${process.env.SOURCES_DIRECTORY}/${websiteId}/${file.type}s/${file.url}.ejs`,
     };
   } else {
     // template 
     options = {
       // The path to which the file should be downloaded, e.g. "./file.txt"
-      destination: `${process.env.PUBLIC_DIRECTORY}/${websiteId}/${file.type}s/${file.filename}`,
+      destination: `${process.env.SOURCES_DIRECTORY}/${websiteId}/${file.type}s/${file.filename}`,
     };
   }
   

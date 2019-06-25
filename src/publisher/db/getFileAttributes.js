@@ -6,7 +6,7 @@ const getFileAttribute = (firestore, websiteId, filename) => {
     .then(function(doc) {
       if (doc.exists) {
         // console.log("Document data:", doc.data());
-        resolve({...doc.data(), filename});
+        resolve({...doc.data(), createdAt: doc.data().createdAt._seconds * 1000, filename});
       } else {
         // doc.data() will be undefined in this case
         console.error("no such file!");

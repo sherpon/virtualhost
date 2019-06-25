@@ -1,5 +1,11 @@
-const  express = require('express');
-const  bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
+const corsOptions = {
+  origin: process.env.ACCESS_CONTROL_ALLOW_ORIGIN,
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 const router = express.Router();
 
@@ -27,6 +33,7 @@ const getFileSourceCodeStep = async (req, res) => {
     res.status(204);
     res.end();  // send no content
   } catch (error) {
+    console.error('ERROR: getFileSourceCodeStep failed.');
     console.error(error);
     res.status(401);
     res.end();  // send no content
@@ -43,6 +50,7 @@ const getFileAttributesStep = async (req, res) => {
     req.fileAttributes = file;
     await getFileSourceCodeStep(req, res);
   } catch (error) {
+    console.error('ERROR: getFileAttributesStep failed.');
     console.error(error);
     res.status(401);
     res.end();  // send no content
@@ -60,11 +68,13 @@ const getAuthorizationStep = async (req, res) => {
       await getFileAttributesStep(req, res);
     } else {
       // unauthorized
+      console.error('ERROR: getAuthorizationStep failed.');
       console.log('the user ' + userId + ' is unauthorized');
       res.status(406);
       res.end();  // send no content
     }
   } catch (error) {
+    console.error('ERROR: getAuthorizationStep failed.');
     console.error(error);
     res.status(401);
     res.end();  // send no content
@@ -75,6 +85,7 @@ const getTokenStep = async (req, res) => {
   const myAuthentication = getToken(req.headers);
   if (myAuthentication===false) {
     // didn't find any token
+    console.error('ERROR: getTokenStep failed.');
     res.status(401);
     res.end();  // send no content
   } else {
@@ -85,7 +96,8 @@ const getTokenStep = async (req, res) => {
   }
 };
 
-router.post('/', async function (request, response) { 
+router.options('/', cors(corsOptions))
+router.post('/', cors(corsOptions), async function (request, response) { 
   // const domain = request.host;
   // response.send('virtualhostServer');
   /* response.render(`${domain}/templates/index`, {
