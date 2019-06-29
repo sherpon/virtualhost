@@ -5,6 +5,7 @@ require('dotenv').config({
 const express = require('express');
 const vhost = require('vhost');
 const fs = require("fs");
+const fsPromises = fs.promises;
 const helmet = require('helmet');
 const morgan = require('morgan');
 
@@ -36,14 +37,15 @@ app.use(vhost(process.env.PUBLISHER_ENDPOINT, publisherRouter));
 app.use(vhost(process.env.DOMAIN_MANAGER_ENDPOINT, domainManagerRouter));
 
 const allDomainRegex = /[a-z]/ig;
-app.use((req, res, next) => {
+app.use( async (req, res, next) => {
   const domain = req.hostname;
   const result = allDomainRegex.test(domain);
   if (!result) {
     next();
   }
   if (fs.existsSync(`${process.env.PUBLIC_DIRECTORY}/${domain}`)) {
-    const config = require(`${process.env.PUBLIC_DIRECTORY}/${domain}/config.json`);
+    let config = await fsPromises.readFile(`${process.env.PUBLIC_DIRECTORY}/${domain}/config.json`, { encoding: 'utf8' });
+    config = JSON.parse(config);
     // populate
     req.websiteConfig = config;
     virtualhostServerRouter(req, res, next);
