@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const corsOptions = {
-  origin: process.env.ACCESS_CONTROL_ALLOW_ORIGIN,
+  origin: process.env.ADMIN_APP_URL,
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
