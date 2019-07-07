@@ -13,6 +13,9 @@ router.use(bodyParser.json({type: 'application/json'}));
 
 router.use(expirationFilter());
 
+console.log('STATICS_DIRECTORY');
+console.log(process.env.STATICS_DIRECTORY);
+
 router.use(express.static(process.env.STATICS_DIRECTORY));
 
 router.get('/:pageUrl', async function (request, response) { 

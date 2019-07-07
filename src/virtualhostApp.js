@@ -2,6 +2,9 @@ require('dotenv').config({
   path: process.env.DOTENV_PATH,
 });
 
+console.log('DOTENV_PATH');
+console.log(process.env.DOTENV_PATH);
+
 const express = require('express');
 const vhost = require('vhost');
 const fs = require("fs");
@@ -43,6 +46,12 @@ app.use( async (req, res, next) => {
   if (!result) {
     next();
   }
+  console.log('DOMAIN');
+  console.log(domain);
+
+  console.log('PUBLIC_DIRECTORY DOMAIN');
+  console.log(`${process.env.PUBLIC_DIRECTORY}/${domain}`);
+
   if (fs.existsSync(`${process.env.PUBLIC_DIRECTORY}/${domain}`)) {
     let config = await fsPromises.readFile(`${process.env.PUBLIC_DIRECTORY}/${domain}/config.json`, { encoding: 'utf8' });
     config = JSON.parse(config);
@@ -75,7 +84,7 @@ app.use(function(req, res, next){
 // DO NOT DO app.listen() unless we're testing this directly
 if (require.main === module) { 
   //Start Sherpon Virtualhost
-  const port = process.env.PORT || 7000;
+  const port = process.env.DEV_PORT || 7000;
   app.listen(port, function () {
     console.log('NODE_ENV: %s', process.env.NODE_ENV);
     console.log('Sherpon Virtualhost running on http://*.localhost:%d/', port);

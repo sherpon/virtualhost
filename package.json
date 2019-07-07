@@ -5,8 +5,11 @@
   "main": "src/virtualhostApp.js",
   "scripts": {
     "test": "jest --coverage",
-    "debug": "export DOTENV_PATH=$PWD/env/development.env && node --inspect ./src/virtualhostApp.js",
-    "dev": "export DOTENV_PATH=$PWD/env/development.env && node ./src/virtualhostApp.js"
+    "debug": "export DOTENV_PATH=$PWD/virtualhost/env/development.env && node --inspect ./src/virtualhostApp.js",
+    "dev": "export DOTENV_PATH=$PWD/virtualhost/env/development.env && node ./src/virtualhostApp.js",
+    "http": "node ./src/virtualhostApp.js",
+    "https": "node ./src/greenlock.js",
+    "start": "npm run https"
   },
   "repository": {
     "type": "git",

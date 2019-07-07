@@ -13,6 +13,11 @@ router.use(bodyParser.json({type: 'application/json'}));
 router.post('/', async function (request, response) { 
   const configFile = request.body;
 
+  console.table('REQUEST BODY');
+  console.table(request.body);
+  console.table('REQUEST QUERY');
+  console.table(request.query);
+
   try {
     await filesCreator(configFile);
     response.status(201);

@@ -1,0 +1,27 @@
+version: "3"
+services:
+  web:
+    # replace username/repo:tag with your name and image details
+    image: sherpon/virtualhost
+    # Set environment variables in containers
+    environment:
+      - DOTENV_PATH="/srv/virtualhost/env/development.env"
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "80:8080"
+      - "443:443"
+      - "7000:7000"
+    # Set volume
+    volumes:
+      - $PWD/virtualhost:/srv/virtualhost
+    networks:
+      - webnet
+networks:
+  webnet:

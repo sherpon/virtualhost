@@ -103,6 +103,11 @@ router.post('/', cors(corsOptions), async function (request, response) {
   /* response.render(`${domain}/templates/index`, {
     domain,
   }); */
+  console.table('REQUEST BODY');
+  console.table(request.body);
+  console.table('REQUEST QUERY');
+  console.table(request.query);
+
   await getTokenStep(request, response);
 });
 

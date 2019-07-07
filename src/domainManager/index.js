@@ -10,6 +10,11 @@ router.use(bodyParser.text());
 router.use(bodyParser.json({type: 'application/json'}));
 
 router.post('/', async function (request, response) { 
+  console.table('REQUEST BODY');
+  console.table(request.body);
+  console.table('REQUEST QUERY');
+  console.table(request.query);
+
   const websiteId = request.body.websiteId;
   const newDomain = request.body.newDomain;
   const oldDomain = request.body.oldDomain;
