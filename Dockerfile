@@ -30,4 +30,4 @@ COPY . .
 
 EXPOSE 80 443 7000
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "https" ]

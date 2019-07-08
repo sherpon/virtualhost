@@ -2,6 +2,18 @@ require('dotenv').config({
   path: process.env.DOTENV_PATH,
 });
 
+/**
+ * https://www.npmjs.com/package/dotenv
+ * try with this code why doesn't read the dotenv file
+ * const result = dotenv.config()
+ 
+   if (result.error) {
+     throw result.error
+   }
+    
+   console.log(result.parsed)
+ */
+
 console.log('DOTENV_PATH');
 console.log(process.env.DOTENV_PATH);
 
@@ -41,6 +53,10 @@ app.use(vhost(process.env.DOMAIN_MANAGER_ENDPOINT, domainManagerRouter));
 
 const allDomainRegex = /[a-z]/ig;
 app.use( async (req, res, next) => {
+  /**
+   * TO-DO 
+   * req.hostname returns undefined when is running as docker stack in the staging server
+   */
   const domain = req.hostname;
   const result = allDomainRegex.test(domain);
   if (!result) {

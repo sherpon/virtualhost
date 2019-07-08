@@ -1,4 +1,4 @@
-# PRODUCTION
+# STAGING
 version: "3"
 services:
   web:
@@ -6,8 +6,8 @@ services:
     image: sherpon/virtualhost:http
     # Set environment variables in containers
     environment:
-      - DOTENV_PATH="/srv/virtualhost/env/production.env"
-    env_file: ./virtualhost_docker/env/production.env
+      - DOTENV_PATH="/srv/virtualhost/env/staging.env"
+    env_file: ./virtualhost_docker/env/staging.env
     deploy:
       replicas: 3
       resources:

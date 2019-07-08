@@ -1,3 +1,4 @@
+# DEVELOPMENT
 version: "3"
 services:
   web:
@@ -6,6 +7,7 @@ services:
     # Set environment variables in containers
     environment:
       - DOTENV_PATH="/srv/virtualhost/env/development.env"
+    env_file: ./virtualhost_docker/env/development.env
     deploy:
       replicas: 3
       resources:
@@ -15,11 +17,12 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-      - "80:8080"
+      - "80:80"
+      - "443:443"
       - "7000:7000"
     # Set volume
     volumes:
-      - $PWD/virtualhost:/srv/virtualhost
+      - $PWD/virtualhost_docker:/srv/virtualhost
     networks:
       - webnet
 networks:
