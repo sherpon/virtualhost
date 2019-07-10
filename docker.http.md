@@ -47,7 +47,7 @@ docker run \
 # attached
 docker run \
   --name=vh \
-  -e DOTENV_PATH="/srv/virtualhost/env/staging.env" \
+  -e DOTENV_PATH="/srv/virtualhost/env/development.env" \
   -v $PWD/virtualhost_docker:/srv/virtualhost \
   -p 80:80 -p 443:443 -p 7000:7000 \
   --rm \
