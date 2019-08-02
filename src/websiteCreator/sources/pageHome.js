@@ -3,7 +3,7 @@ const html = `
   Header
 </header>
 <main class="page-container">
-  <%= domain %> About page!!!
+  <%= domain %> Home page!!!
 </main>
 <footer class="footer-container">
   Footer

@@ -5,6 +5,7 @@ const templatePages = require('./sources/templatePages');
 const templateHeader = require('./sources/templateHeader');
 const templateFooter = require('./sources/templateFooter');
 
+const pageHome = require('./sources/pageHome');
 const pageAbout = require('./sources/pageAbout');
 
 const filesCreator = (configFile) => {
@@ -31,13 +32,31 @@ const filesCreator = (configFile) => {
       await fsPromises.writeFile(`${process.env.PUBLIC_DIRECTORY}/${configFile.domain}/templates/footer.ejs`, templateFooter);
 
       /** CREATE PAGES */
+      const createdAt = new Date();
+      // create Website home Page
+      await fsPromises.writeFile(`${process.env.PUBLIC_DIRECTORY}/${configFile.domain}/pages/home.ejs`, pageHome);
+      // create Website home json
+      await fsPromises.writeFile(`${process.env.PUBLIC_DIRECTORY}/${configFile.domain}/pages/home.json`, JSON.stringify({
+        "type": "page",
+        "filename": "home",
+        "createdAt": createdAt,
+        "url":"home",
+        "title":configFile.name,
+        "keywords":"",
+        "description":"",
+        "themeColor":"",
+        "meta":"",
+        "script":"",
+        "style":"",
+      }));
+
       // create Website about Page
       await fsPromises.writeFile(`${process.env.PUBLIC_DIRECTORY}/${configFile.domain}/pages/about.ejs`, pageAbout);
       // create Website about json
       await fsPromises.writeFile(`${process.env.PUBLIC_DIRECTORY}/${configFile.domain}/pages/about.json`, JSON.stringify({
         "type": "page",
-        "filename": "about.ejs",
-        "createdAt": new Date(),
+        "filename": "about",
+        "createdAt": createdAt,
         "url":"about",
         "title":"About page",
         "keywords":"",
