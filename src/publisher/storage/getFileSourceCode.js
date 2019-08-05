@@ -18,7 +18,7 @@ const getFileSourceCode = async (storage, websiteId, file) => {
     // template 
     options = {
       // The path to which the file should be downloaded, e.g. "./file.txt"
-      destination: `${process.env.SOURCES_DIRECTORY}/${websiteId}/${file.type}s/${file.filename}`,
+      destination: `${process.env.SOURCES_DIRECTORY}/${websiteId}/${file.type}s/${file.filename}.ejs`,
     };
   }
   

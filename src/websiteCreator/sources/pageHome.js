@@ -3,7 +3,7 @@ const html = `
   <div>Header</div>
 </header>
 <main class="page-container">
-  <div>About page!!!</div>
+  <div>Home page!!!</div>
 </main>
 <footer class="footer-container">
   <div>Footer</div>
