@@ -1,12 +1,12 @@
 const html = `
 <header class="header-container">
-  Header
+  <div>Header</div>
 </header>
 <main class="page-container">
-  <%= domain %> About page!!!
+  <div>About page!!!</div>
 </main>
 <footer class="footer-container">
-  Footer
+  <div>Footer</div>
 </footer>
 `;
 

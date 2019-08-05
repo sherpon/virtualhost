@@ -32,10 +32,11 @@ router.get('/:pageUrl', async function (request, response) {
   });
 });
 
-router.get('/', function (request, response) { 
+router.get('/', async function (request, response) { 
   const domain = request.hostname;
   const websiteConfig = request.websiteConfig;
-  let pageConfig = await fsPromises.readFile(`${process.env.PUBLIC_DIRECTORY}/${domain}/pages/index.json`, { encoding: 'utf8' });
+  let pageConfig = await fsPromises.readFile(`${process.env.PUBLIC_DIRECTORY}/${domain}/pages/home.json`, { encoding: 'utf8' });
+  pageConfig = JSON.parse(pageConfig);
   response.render(`${domain}/templates/index`, {
     domain,
     websiteConfig,
