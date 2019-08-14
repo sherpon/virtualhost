@@ -1,6 +1,6 @@
 'use strict';
 const fs = require("fs");
-
+const version = require('../package.json').version;
 //
 // My Secure Server
 //
@@ -15,16 +15,12 @@ var greenlock = require('greenlock-express').create({
   version: 'draft-11',
   // You MUST have write access to save certs
   configDir: process.env.CERTIFICATES_DIRECTORY,
-
+  /** The old default is 'le-store-certbot', but the new default will be 'greenlock-store-fs'. Please `npm install greenlock-store-fs@3` and explicitly set `{ store: require('greenlock-store-fs') }`. */
+  store: require('greenlock-store-fs'),
   // approveDomains is the right place to check a database for
   // email addresses with domains and agreements and such
   approveDomains: approveDomains,
-
   app: require('./virtualhostApp'),
-
-  email: process.env.GREENLOCK_EMAIL,                                   // Email for Let's Encrypt account and Greenlock Security
-  agreeTos: true,
-
   // Get notified of important updates and help me make greenlock better
   communityMember: false
   //, debug: true
@@ -64,14 +60,16 @@ function approveDomains(opts, certs, cb) {
   // Only one domain is listed with *automatic* registration via SNI
 	// (it's an array because managed registration allows for multiple domains,
 	//                                which was the case in the simple example)
+  console.log('opts');
   console.table(opts);
+  console.log('certs');
   console.table(certs);
   
-  if (isDomainValid(opts.domains[0] !== true) /* the domain is not valid */) {
+  if (isDomainValid(opts.domains[0]) !== true /* the domain is not valid */) {
     cb(new Error("Domain not allowed"));
   }
 
-  if (doesWebsiteExist(opts.domains[0] !== true) /* The website doesn't exist */) {
+  if (doesWebsiteExist(opts.domains[0]) !== true /* The website doesn't exist */) {
     cb(new Error("The website doesn't exist"));
   }
 
