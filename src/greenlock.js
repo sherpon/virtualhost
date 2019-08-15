@@ -14,7 +14,7 @@ var greenlock = require('greenlock-express').create({
   server: process.env.ACME_API, // 'https://acme-v02.api.letsencrypt.org/directory',
   version: 'draft-11',
   // You MUST have write access to save certs
-  configDir: process.env.CERTIFICATES_DIRECTORY,
+  configDir: '/srv/virtualhost/certificates/',
   /** The old default is 'le-store-certbot', but the new default will be 'greenlock-store-fs'. Please `npm install greenlock-store-fs@3` and explicitly set `{ store: require('greenlock-store-fs') }`. */
   store: require('greenlock-store-fs'),
   // approveDomains is the right place to check a database for
@@ -43,11 +43,30 @@ const isDomainValid = (domain) => {
 };
 
 
-const doesWebsiteExist = (domain) => {
+const doesDomainExist = (domain) => {
   let doesExist = false;
 
   if (fs.existsSync(`${process.env.PUBLIC_DIRECTORY}/${domain}`)) {
     doesExist = true;
+    return doesExist;
+  }
+
+  // if is the creator service
+  if (process.env.CREATOR_ENDPOINT === domain) {
+    doesExist = true;
+    return doesExist;
+  }
+
+  // if is the publisher service
+  if (process.env.PUBLISHER_ENDPOINT === domain) {
+    doesExist = true;
+    return doesExist;
+  }
+
+  // if is the domain manager service
+  if (process.env.DOMAIN_MANAGER_ENDPOINT === domain) {
+    doesExist = true;
+    return doesExist;
   }
 
   return doesExist;
@@ -69,8 +88,8 @@ function approveDomains(opts, certs, cb) {
     cb(new Error("Domain not allowed"));
   }
 
-  if (doesWebsiteExist(opts.domains[0]) !== true /* The website doesn't exist */) {
-    cb(new Error("The website doesn't exist"));
+  if (doesDomainExist(opts.domains[0]) !== true /* The domain doesn't exist */) {
+    cb(new Error("The domain doesn't exist"));
   }
 
   // The domains being approved for the first time are listed in opts.domains

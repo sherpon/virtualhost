@@ -38,7 +38,6 @@ docker run \
   --restart always \
   -e DOTENV_PATH="/srv/virtualhost/env/staging.env" \
   -v $PWD/virtualhost_docker:/srv/virtualhost \
-  -v ~/acme:/root/.config/acme \
   -p 80:80 -p 443:443 -p 7000:7000 \
   sherpon/virtualhost:https
 ```
